@@ -1,0 +1,62 @@
+import _random
+from re import split
+import array
+import math
+import ipaddress
+
+
+#ip=input("write ip+mask: ")
+#if ip.isalpha():
+#	print ("ip must have numbers")
+#	ip=input("enter ip: ")
+#else :
+#	print ("your ip number: %s"%ip)
+#print("SPLITTING IP")
+#splitted=ip.split("/")
+#print (splitted)
+#print("SPLITTING MASK")
+#mask=int(splitted[1])
+
+#ipno=splitted[0]
+ip='192.168.100.1/2'
+amask=ipaddress.IPv4Interface('192.168.100.1/2')
+print("IP+MASK DECIMAL: %s"%amask)
+print("IP+MASK IN BINARY: %s"%amask.with_netmask)
+m=str(amask.with_netmask)
+ma=m.split("/")
+mas=ma[1]
+ipno=ma[0]
+print("IP NUMBER: %s"%ipno)
+binip='.'.join([bin(int(x)+256)[3:]for x in ipno.split('.')])
+print("BINARY IP: %s"%binip)
+print("MASK: %s"%mas)
+binma='.'.join([bin(int(x)+256)[3:]for x in mas.split('.')])
+print("BINARY MASK: %s"%binma)
+
+print("----------NET ADDRESS----------")
+#host=ipaddress.IPv4Address(ipno)
+#net=ipaddress.IPv4Network(ipno+'/'+mas,False)
+#netaddress=ipaddress.IPv4Address(int(host)& int(net.netmask))
+netaddress="00000000.00000000.00000000.00000000"
+for i in range(0,34):
+   if(binma[i]==1):
+        netaddress[i]=binip[i]
+    elif(binma[i]==0):
+        netaddress[i]=0
+    else:
+        netaddress[i]= '.'
+print("%s"%netaddress)
+print("-----NET CLASS-----")
+netclass=int(ipno.split('.')[0])
+print("comparing the first byte: %s"%netclass)
+if(netclass>0 and netclass <128):
+    print("CLASS A")
+elif(netclass>128 and netclass<191):
+    print("CLASS B")
+elif (netclass >= 192 and netclass < 223):
+    print("CLASS C")
+elif (netclass >= 224 and netclass < 239):
+    print("CLASS D")
+elif (netclass >= 240 and netclass < 255):
+    print("CLASS E")
+#####################
