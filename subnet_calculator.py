@@ -23,7 +23,7 @@ def getnumberofhosts(mask):
     hosts = 2 ** (32 - int(mask)) - 2
     return hosts
 
-def sub(ipmask):
+def subcalc(ipmask):
 
     print("Checking if IP and mask are valid...")
     octet_ip = ipmask.split("/")[0]
